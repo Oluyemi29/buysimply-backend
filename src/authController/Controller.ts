@@ -80,8 +80,8 @@ export const Login = async (req: Request, res: Response) => {
       res.cookie("buysimply", token, {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true,
-        sameSite: "lax",
-        secure: false,
+        sameSite: "none",
+        secure: true,
       });
 
       return res.status(200).send({
@@ -129,8 +129,8 @@ export const Logout = async (req: Request, res: Response) => {
     // clearing cookies
     res.clearCookie("buysimply", {
       httpOnly: true,
-      sameSite: "lax",
-      secure: false,
+      sameSite: "none",
+      secure: true,
     });
 
     return res.status(200).send({
