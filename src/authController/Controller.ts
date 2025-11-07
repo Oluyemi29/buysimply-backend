@@ -57,7 +57,7 @@ export const Login = async (req: Request, res: Response) => {
       });
     }
 
-    if (!user.password) {
+    if (!user.password!) {
       return res.status(400).send({
         success: false,
         message: "Password is required",
