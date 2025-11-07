@@ -56,7 +56,14 @@ export const Login = async (req: Request, res: Response) => {
         message: "User not found",
       });
     }
-    const comfirmPassword = user.password === password;
+
+    if (!user.password) {
+      return res.status(400).send({
+        success: false,
+        message: "Password is required",
+      });
+    }
+    const comfirmPassword = user.password === password.toString();
     if (!comfirmPassword) {
       return res.status(400).send({
         success: false,
