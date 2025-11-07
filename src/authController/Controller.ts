@@ -8,7 +8,7 @@ type UserDatas = {
   name: string;
   email: string;
   role: string;
-  password: string | undefined;
+  password: string;
 }[];
 
 type LoanDataProps = {
@@ -48,9 +48,7 @@ export const Login = async (req: Request, res: Response) => {
 
     // checking is user already exist
     const user = usersData.find((eachStaff) => {
-      return (
-        eachStaff.email === email && eachStaff.password?.toString() === password
-      );
+      return eachStaff.email === email && eachStaff.password === password;
     });
     if (!user) {
       return res.status(400).send({
@@ -60,14 +58,13 @@ export const Login = async (req: Request, res: Response) => {
     }
     console.log(user);
 
-    const comfirmPassword = user.password === password.toString();
+    const comfirmPassword = user.password === password;
     if (!comfirmPassword) {
       return res.status(400).send({
         success: false,
         message: "incorrect password",
       });
     }
-    user.password = undefined;
     if (user) {
       const token = jwt.sign(
         { id: user.id },

@@ -23,7 +23,7 @@ const Login = async (req, res) => {
         }
         // checking is user already exist
         const user = usersData.find((eachStaff) => {
-            return (eachStaff.email === email && eachStaff.password?.toString() === password);
+            return eachStaff.email === email && eachStaff.password === password;
         });
         if (!user) {
             return res.status(400).send({
@@ -32,14 +32,13 @@ const Login = async (req, res) => {
             });
         }
         console.log(user);
-        const comfirmPassword = user.password === password.toString();
+        const comfirmPassword = user.password === password;
         if (!comfirmPassword) {
             return res.status(400).send({
                 success: false,
                 message: "incorrect password",
             });
         }
-        user.password = undefined;
         if (user) {
             const token = jsonwebtoken_1.default.sign({ id: user.id }, process.env.SECRET_KEY, { expiresIn: "7d" });
             res.cookie("buysimply", token, {
