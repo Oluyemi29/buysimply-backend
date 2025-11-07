@@ -36,13 +36,6 @@ const loansData = JSON.parse(
 
 export const Login = async (req: Request, res: Response) => {
   try {
-    const apiKey = req.headers["api-key"];
-    if (!apiKey || apiKey !== (process.env.API_KEY as string)) {
-      return res.status(400).send({
-        success: false,
-        message: "Unauthorise access",
-      });
-    }
     const { email, password } = req.body;
     console.log(email, password);
 
@@ -148,13 +141,6 @@ export const Logout = async (req: Request, res: Response) => {
 
 export const GetallLoan = (req: Request, res: Response) => {
   try {
-    const apiKey = req.headers["api-key"];
-    if (!apiKey || apiKey !== (process.env.API_KEY as string)) {
-      return res.status(400).send({
-        success: false,
-        message: "Unauthorise access",
-      });
-    }
     const allLoan = loansData;
     console.log(allLoan);
 
@@ -173,13 +159,6 @@ export const GetallLoan = (req: Request, res: Response) => {
 };
 export const GetallExpredLoan = (req: Request, res: Response) => {
   try {
-    const apiKey = req.headers["api-key"];
-    if (!apiKey || apiKey !== (process.env.API_KEY as string)) {
-      return res.status(400).send({
-        success: false,
-        message: "Unauthorise access",
-      });
-    }
     const allLoan = loansData.filter((eachloan) => {
       const now = new Date();
       return new Date(eachloan.maturityDate) < now;
@@ -202,13 +181,6 @@ export const GetallExpredLoan = (req: Request, res: Response) => {
 
 export const GetSingleUSerLoan = (req: Request, res: Response) => {
   try {
-    const apiKey = req.headers["api-key"];
-    if (!apiKey || apiKey !== (process.env.API_KEY as string)) {
-      return res.status(400).send({
-        success: false,
-        message: "Unauthorise access",
-      });
-    }
     const { userEmail } = req.params;
 
     const userLoanData = loansData.filter((eachloan) => {
@@ -231,13 +203,6 @@ export const GetSingleUSerLoan = (req: Request, res: Response) => {
 
 export const DeleteLoan = (req: Request, res: Response) => {
   try {
-    const apiKey = req.headers["api-key"];
-    if (!apiKey || apiKey !== (process.env.API_KEY as string)) {
-      return res.status(400).send({
-        success: false,
-        message: "Unauthorise access",
-      });
-    }
     const { loanId } = req.body;
 
     const userLoanData = loansData.filter((eachloan) => {

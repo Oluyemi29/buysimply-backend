@@ -13,13 +13,6 @@ const usersData = JSON.parse(fs_1.default.readFileSync(usersPath, "utf8"));
 const loansData = JSON.parse(fs_1.default.readFileSync(loanPath, "utf8"));
 const Login = async (req, res) => {
     try {
-        const apiKey = req.headers["api-key"];
-        if (!apiKey || apiKey !== process.env.API_KEY) {
-            return res.status(400).send({
-                success: false,
-                message: "Unauthorise access",
-            });
-        }
         const { email, password } = req.body;
         console.log(email, password);
         if (!email || !password) {
@@ -118,13 +111,6 @@ const Logout = async (req, res) => {
 exports.Logout = Logout;
 const GetallLoan = (req, res) => {
     try {
-        const apiKey = req.headers["api-key"];
-        if (!apiKey || apiKey !== process.env.API_KEY) {
-            return res.status(400).send({
-                success: false,
-                message: "Unauthorise access",
-            });
-        }
         const allLoan = loansData;
         console.log(allLoan);
         return res.status(200).send({
@@ -144,13 +130,6 @@ const GetallLoan = (req, res) => {
 exports.GetallLoan = GetallLoan;
 const GetallExpredLoan = (req, res) => {
     try {
-        const apiKey = req.headers["api-key"];
-        if (!apiKey || apiKey !== process.env.API_KEY) {
-            return res.status(400).send({
-                success: false,
-                message: "Unauthorise access",
-            });
-        }
         const allLoan = loansData.filter((eachloan) => {
             const now = new Date();
             return new Date(eachloan.maturityDate) < now;
@@ -173,13 +152,6 @@ const GetallExpredLoan = (req, res) => {
 exports.GetallExpredLoan = GetallExpredLoan;
 const GetSingleUSerLoan = (req, res) => {
     try {
-        const apiKey = req.headers["api-key"];
-        if (!apiKey || apiKey !== process.env.API_KEY) {
-            return res.status(400).send({
-                success: false,
-                message: "Unauthorise access",
-            });
-        }
         const { userEmail } = req.params;
         const userLoanData = loansData.filter((eachloan) => {
             return eachloan.applicant?.email === userEmail;
@@ -201,13 +173,6 @@ const GetSingleUSerLoan = (req, res) => {
 exports.GetSingleUSerLoan = GetSingleUSerLoan;
 const DeleteLoan = (req, res) => {
     try {
-        const apiKey = req.headers["api-key"];
-        if (!apiKey || apiKey !== process.env.API_KEY) {
-            return res.status(400).send({
-                success: false,
-                message: "Unauthorise access",
-            });
-        }
         const { loanId } = req.body;
         const userLoanData = loansData.filter((eachloan) => {
             return eachloan.id !== loanId;
