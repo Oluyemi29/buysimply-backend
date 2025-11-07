@@ -48,7 +48,9 @@ export const Login = async (req: Request, res: Response) => {
 
     // checking is user already exist
     const user = usersData.find((eachStaff) => {
-      return eachStaff.email === email;
+      return (
+        eachStaff.email === email && eachStaff.password?.toString() === password
+      );
     });
     if (!user) {
       return res.status(400).send({
@@ -56,13 +58,8 @@ export const Login = async (req: Request, res: Response) => {
         message: "User not found",
       });
     }
+    console.log(user);
 
-    if (!user.password!) {
-      return res.status(400).send({
-        success: false,
-        message: "Password is required",
-      });
-    }
     const comfirmPassword = user.password === password.toString();
     if (!comfirmPassword) {
       return res.status(400).send({

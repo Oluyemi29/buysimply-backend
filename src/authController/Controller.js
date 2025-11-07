@@ -23,7 +23,7 @@ const Login = async (req, res) => {
         }
         // checking is user already exist
         const user = usersData.find((eachStaff) => {
-            return eachStaff.email === email;
+            return (eachStaff.email === email && eachStaff.password?.toString() === password);
         });
         if (!user) {
             return res.status(400).send({
@@ -31,12 +31,7 @@ const Login = async (req, res) => {
                 message: "User not found",
             });
         }
-        if (!user.password) {
-            return res.status(400).send({
-                success: false,
-                message: "Password is required",
-            });
-        }
+        console.log(user);
         const comfirmPassword = user.password === password.toString();
         if (!comfirmPassword) {
             return res.status(400).send({
